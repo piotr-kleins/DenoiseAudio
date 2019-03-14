@@ -46,12 +46,12 @@ X = zeros(1, N);
 for j=1:window_number-1
     %2.
     if j==1
-        y_okno = y(1:window_len);
+        y_window = y(1:window_len);
     else
-        y_okno = y((window_len*j):(window_len*(j+1))-1);
+        y_window = y((window_len*j):(window_len*(j+1))-1);
     end
     
-    y_fft = abs(fft(y_okno));
+    y_fft = abs(fft(y_window));
     y_fft = y_fft(1:window_len/2);
     y_fft = y_fft.*y_fft;
     Sy = y_fft/window_len;
@@ -65,7 +65,7 @@ for j=1:window_number-1
     A = [A1 , fliplr(A1)];
 
     %5.
-    Yw = fft(y_okno);
+    Yw = fft(y_window);
     Xw = A.*Yw;
     xk = ifft(Xw);
     xk = real(xk);
